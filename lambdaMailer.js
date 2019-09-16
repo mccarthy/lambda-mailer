@@ -41,9 +41,8 @@ module.exports = (options) => {
   }
   function generateEmailParamsFromJSON (body) {
     const { email, name, content } = JSON.parse(body)
-    console.log(email, name, content)
-    if (!(email && name && content)) {
-      throw new Error('Missing parameters! Make sure to add parameters \'email\', \'name\', \'content\'.')
+    if (!(email && name)) {
+      throw new Error('Email and Name are required')
     }
 
     return {
@@ -54,24 +53,29 @@ module.exports = (options) => {
         Body: {
           Text: {
             Charset: 'UTF-8',
-            Data: `Message sent from email ${email} by ${name} \nContent: ${content}`
+            Data: `RSVP:\n \
+                   Email: ${email}\n \
+                   Name: ${name} \n \
+                   Attending: ${attend} \n \
+                   Meal: ${meal} \n \
+                   Message: ${message}`
           }
         },
         Subject: {
           Charset: 'UTF-8',
-          Data: `You received a message from ${myDomain}!`
+          Data: `Wedding RSVP from danmanda.party ${name}`
         }
       }
     }
   }
   function generateEmailParamsFromUriEncoded (body) {
-    const { email, name, content } = getParamsFromUrl(body)
-    if (!(email && name && content)) {
-      throw new Error('Missing parameters! Make sure to add parameters \'email\', \'name\', \'content\'.')
+    const { email, name, message, attend, meal } = getParamsFromUrl(body)
+    if (!(email && name)) {
+      throw new Error('Email and Name are required')
     }
 
     const replacedName = name.replace(/\+/g, ' ')
-    const replacedContent = content.replace(/\+/g, ' ')
+    const replacedMessage = message.replace(/\+/g, ' ')
     return {
       Source: myEmail,
       Destination: { ToAddresses: [myEmail] },
@@ -80,12 +84,17 @@ module.exports = (options) => {
         Body: {
           Text: {
             Charset: 'UTF-8',
-            Data: `Message sent from email ${email} by ${replacedName} \nContent: ${replacedContent}`
+            Data: `RSVP:\n \
+                   Email: ${email}\n \
+                   Name: ${replacedName} \n \
+                   Attending: ${attend} \n \
+                   Meal: ${meal} \n \
+                   Message: ${replacedMessage}`
           }
         },
         Subject: {
           Charset: 'UTF-8',
-          Data: `You received a message from ${myDomain}!`
+          Data: `Wedding RSVP from danmanda.party: ${replacedName}`
         }
       }
     }
