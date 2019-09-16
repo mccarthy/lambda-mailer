@@ -18,6 +18,12 @@ provider:
       Action:
         - "ses:SendEmail"
       Resource: "*"
+    - Effect: "Allow"
+      Action:
+        - "logs:CreateLogGroup"
+        - "logs:CreateLogStream"
+        - "logs:PutLogEvents"
+      Resource: "*"
 
 functions:
   sendJSON:
@@ -35,5 +41,5 @@ functions:
           method: post
           cors: true
 
-plugins:
-  - serverless-offline
+#plugins:
+#  - serverless-offline
