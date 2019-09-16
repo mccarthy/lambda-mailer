@@ -4,7 +4,8 @@
   "description": "Simple module for receiving an email from a contact form on your website.",
   "main": "lambdaMailer.js",
   "scripts": {
-    "start": "sls offline start"
+    "start": "sls offline start",
+    "deploy-funcs": "serverless deploy function -f sendJSON && serverless deploy function -f sendFormEncoded"
   },
   "keywords": [
     "aws",
