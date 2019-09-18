@@ -58,7 +58,9 @@ module.exports = (options) => {
                    Name: ${name} \n \
                    Attending: ${attend} \n \
                    Meal: ${meal} \n \
-                   Message: ${message}`
+                   Message: ${message} \
+                   \n \
+                   ${email}|${name}|${attend}|${meal}|${message}`
           }
         },
         Subject: {
@@ -89,7 +91,9 @@ module.exports = (options) => {
                    Name: ${replacedName} \n \
                    Attending: ${attend} \n \
                    Meal: ${meal} \n \
-                   Message: ${replacedMessage}`
+                   Message: ${replacedMessage} \n \
+                   \n \
+                   ${email}|${replacedName}|${attend}|${meal}|${replacedMessage}`
           }
         },
         Subject: {
